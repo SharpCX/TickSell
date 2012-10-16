@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TicksModelStoreContainer" CdmEntityContainer="TicksModelContainer">
+    <EntitySetMapping Name="Cells">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.Cell)">
+        <MappingFragment StoreEntitySet="Cells">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CellName" ColumnName="CellName" />
+          <ScalarProperty Name="CellText" ColumnName="CellText" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="CreaterId" ColumnName="CreaterId" />
+          <ScalarProperty Name="ColNum" ColumnName="ColNum" />
+          <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+          <ScalarProperty Name="Father" ColumnName="Father" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Seats">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.Seat)">
+        <MappingFragment StoreEntitySet="Seats">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SeatName" ColumnName="SeatName" />
+          <ScalarProperty Name="IsSold" ColumnName="IsSold" />
+          <ScalarProperty Name="IsUsing" ColumnName="IsUsing" />
+          <ScalarProperty Name="CreaterId" ColumnName="CreaterId" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="CellsId" ColumnName="CellsId" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+          <ScalarProperty Name="ColIndex" ColumnName="ColIndex" />
+          <ScalarProperty Name="SeatIndex" ColumnName="SeatIndex" />
+          <ScalarProperty Name="SeatType" ColumnName="SeatType" />
+          <ScalarProperty Name="TicketPrice" ColumnName="TicketPrice" />
+          <ScalarProperty Name="TicketType" ColumnName="TicketType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.sysdiagram)">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeCells">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.TimeCell)">
+        <MappingFragment StoreEntitySet="TimeCells">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TimeBe" ColumnName="TimeBe" />
+          <ScalarProperty Name="TimeEn" ColumnName="TimeEn" />
+          <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+          <ScalarProperty Name="CellID" ColumnName="CellID" />
+          <ScalarProperty Name="ColNum" ColumnName="ColNum" />
+          <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+          <ScalarProperty Name="ShowTimes" ColumnName="ShowTimes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeCellSeats">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.TimeCellSeat)">
+        <MappingFragment StoreEntitySet="TimeCellSeats">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SeatName" ColumnName="SeatName" />
+          <ScalarProperty Name="IsSold" ColumnName="IsSold" />
+          <ScalarProperty Name="IsUsing" ColumnName="IsUsing" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+          <ScalarProperty Name="ColIndex" ColumnName="ColIndex" />
+          <ScalarProperty Name="SeatIndex" ColumnName="SeatIndex" />
+          <ScalarProperty Name="TimeCellID" ColumnName="TimeCellID" />
+          <ScalarProperty Name="SeatType" ColumnName="SeatType" />
+          <ScalarProperty Name="TicketType" ColumnName="TicketType" />
+          <ScalarProperty Name="TicketPrice" ColumnName="TicketPrice" />
+          <ScalarProperty Name="SoldUserID" ColumnName="SoldUserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
+          <ScalarProperty Name="CreaterId" ColumnName="CreaterId" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeatTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.SeatType)">
+        <MappingFragment StoreEntitySet="SeatTypes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TickTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.TickType)">
+        <MappingFragment StoreEntitySet="TickTypes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

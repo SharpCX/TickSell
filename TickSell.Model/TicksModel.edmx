@@ -1,0 +1,930 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TicksModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="TicksModelStoreContainer">
+    <EntitySet Name="Cells" EntityType="TicksModel.Store.Cells" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Seats" EntityType="TicksModel.Store.Seats" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="TicksModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TimeCells" EntityType="TicksModel.Store.TimeCells" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TimeCellSeats" EntityType="TicksModel.Store.TimeCellSeats" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="TicksModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SeatTypes" EntityType="TicksModel.Store.SeatTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TickTypes" EntityType="TicksModel.Store.TickTypes" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_CellCell" Association="TicksModel.Store.FK_CellCell">
+      <End Role="Cell" EntitySet="Cells" />
+      <End Role="Cell1" EntitySet="Cells" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cells_Users" Association="TicksModel.Store.FK_Cells_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Cell" EntitySet="Cells" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seats_Cells" Association="TicksModel.Store.FK_Seats_Cells">
+      <End Role="Cell" EntitySet="Cells" />
+      <End Role="Seat" EntitySet="Seats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seats_Users" Association="TicksModel.Store.FK_Seats_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Seat" EntitySet="Seats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Users1" Association="TicksModel.Store.FK_Users_Users1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="User1" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeCells_Cells" Association="TicksModel.Store.FK_TimeCells_Cells">
+      <End Role="Cell" EntitySet="Cells" />
+      <End Role="TimeCell" EntitySet="TimeCells" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeCellSeats_TimeCells" Association="TicksModel.Store.FK_TimeCellSeats_TimeCells">
+      <End Role="TimeCell" EntitySet="TimeCells" />
+      <End Role="TimeCellSeat" EntitySet="TimeCellSeats" />
+    </AssociationSet>
+    <AssociationSet Name="UserTimeCellSeat" Association="TicksModel.Store.UserTimeCellSeat">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TimeCellSeat" EntitySet="TimeCellSeats" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cells">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CellName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CellText" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatDate" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreaterId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="ColNum" Type="int" Nullable="false" />
+    <Property Name="RowNum" Type="int" Nullable="false" />
+    <Property Name="Father" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Seats">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SeatName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsSold" Type="bit" Nullable="false" />
+    <Property Name="IsUsing" Type="bit" Nullable="false" />
+    <Property Name="CreaterId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="CreatDate" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CellsId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="RowIndex" Type="int" Nullable="false" />
+    <Property Name="ColIndex" Type="int" Nullable="false" />
+    <Property Name="SeatIndex" Type="int" Nullable="false" />
+    <Property Name="SeatType" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TicketPrice" Type="float" Nullable="true" />
+    <Property Name="TicketType" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" Nullable="true" />
+    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="TimeCells">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TimeBe" Type="datetime" Nullable="false" />
+    <Property Name="TimeEn" Type="datetime" Nullable="false" />
+    <Property Name="MovieName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CellID" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="ColNum" Type="int" Nullable="false" />
+    <Property Name="RowNum" Type="int" Nullable="false" />
+    <Property Name="ShowTimes" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TimeCellSeats">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SeatName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsSold" Type="bit" Nullable="false" />
+    <Property Name="IsUsing" Type="bit" Nullable="false" />
+    <Property Name="CreatDate" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="RowIndex" Type="int" Nullable="false" />
+    <Property Name="ColIndex" Type="int" Nullable="false" />
+    <Property Name="SeatIndex" Type="int" Nullable="false" />
+    <Property Name="TimeCellID" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="SeatType" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TicketType" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TicketPrice" Type="float" Nullable="true" />
+    <Property Name="SoldUserID" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreatDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserLevel" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreaterId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="UserPassword" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeatTypes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="CreatDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TickTypes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatDate" Type="datetime" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CellCell">
+    <End Role="Cell" Type="TicksModel.Store.Cells" Multiplicity="0..1" />
+    <End Role="Cell1" Type="TicksModel.Store.Cells" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cell">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cell1">
+        <PropertyRef Name="Father" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cells_Users">
+    <End Role="User" Type="TicksModel.Store.Users" Multiplicity="0..1" />
+    <End Role="Cell" Type="TicksModel.Store.Cells" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cell">
+        <PropertyRef Name="CreaterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seats_Cells">
+    <End Role="Cell" Type="TicksModel.Store.Cells" Multiplicity="0..1" />
+    <End Role="Seat" Type="TicksModel.Store.Seats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cell">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Seat">
+        <PropertyRef Name="CellsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seats_Users">
+    <End Role="User" Type="TicksModel.Store.Users" Multiplicity="0..1" />
+    <End Role="Seat" Type="TicksModel.Store.Seats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Seat">
+        <PropertyRef Name="CreaterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Users1">
+    <End Role="User" Type="TicksModel.Store.Users" Multiplicity="0..1" />
+    <End Role="User1" Type="TicksModel.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User1">
+        <PropertyRef Name="CreaterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimeCells_Cells">
+    <End Role="Cell" Type="TicksModel.Store.Cells" Multiplicity="0..1" />
+    <End Role="TimeCell" Type="TicksModel.Store.TimeCells" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cell">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TimeCell">
+        <PropertyRef Name="CellID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimeCellSeats_TimeCells">
+    <End Role="TimeCell" Type="TicksModel.Store.TimeCells" Multiplicity="0..1" />
+    <End Role="TimeCellSeat" Type="TicksModel.Store.TimeCellSeats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeCell">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TimeCellSeat">
+        <PropertyRef Name="TimeCellID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserTimeCellSeat">
+    <End Role="User" Type="TicksModel.Store.Users" Multiplicity="0..1" />
+    <End Role="TimeCellSeat" Type="TicksModel.Store.TimeCellSeats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TimeCellSeat">
+        <PropertyRef Name="SoldUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="TicksModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" >
+        <EntityContainer Name="TicksModelContainer" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(TicksModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(TicksModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="sp_alterdiagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition1" ReturnType="Collection(TicksModel.sp_helpdiagramdefinition1_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams1" ReturnType="Collection(TicksModel.sp_helpdiagrams1_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram1">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams1" />
+          <FunctionImport Name="sp_alterdiagram2">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram2">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram2">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition2" ReturnType="Collection(TicksModel.sp_helpdiagramdefinition2_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams2" ReturnType="Collection(TicksModel.sp_helpdiagrams2_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram2">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams2" />
+          <FunctionImport Name="sp_alterdiagram3">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram3">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram3">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition3" ReturnType="Collection(TicksModel.sp_helpdiagramdefinition3_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams3" ReturnType="Collection(TicksModel.sp_helpdiagrams3_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram3">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams3" />
+          <FunctionImport Name="sp_alterdiagram4">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+            <Parameter Name="version" Type="Int32" Mode="In" />
+            <Parameter Name="definition" Type="Binary" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram4">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+            <Parameter Name="version" Type="Int32" Mode="In" />
+            <Parameter Name="definition" Type="Binary" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram4">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition4" ReturnType="Collection(TicksModel.sp_helpdiagramdefinition4_Result)">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams4" ReturnType="Collection(TicksModel.sp_helpdiagrams4_Result)">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram4">
+            <Parameter Name="diagramname" Type="String" Mode="In" />
+            <Parameter Name="owner_id" Type="Int32" Mode="In" />
+            <Parameter Name="new_diagramname" Type="String" Mode="In" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams4" />
+          <EntitySet Name="Cells" EntityType="TicksModel.Cell" />
+          <EntitySet Name="Seats" EntityType="TicksModel.Seat" />
+          <EntitySet Name="sysdiagrams" EntityType="TicksModel.sysdiagram" />
+          <EntitySet Name="TimeCells" EntityType="TicksModel.TimeCell" />
+          <EntitySet Name="TimeCellSeats" EntityType="TicksModel.TimeCellSeat" />
+          <EntitySet Name="Users" EntityType="TicksModel.User" />
+          <AssociationSet Name="FK_CellCell" Association="TicksModel.FK_CellCell">
+            <End Role="Cell" EntitySet="Cells" />
+            <End Role="Cell1" EntitySet="Cells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cells_Users" Association="TicksModel.FK_Cells_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cell" EntitySet="Cells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seats_Cells" Association="TicksModel.FK_Seats_Cells">
+            <End Role="Cell" EntitySet="Cells" />
+            <End Role="Seat" EntitySet="Seats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seats_Users" Association="TicksModel.FK_Seats_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Seat" EntitySet="Seats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Users1" Association="TicksModel.FK_Users_Users1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User1" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram5">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram5">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram5">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition5" ReturnType="Collection(TicksModel.sp_helpdiagramdefinition5_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams5" ReturnType="Collection(TicksModel.sp_helpdiagrams5_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram5">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams5" />
+          <AssociationSet Name="FK_TimeCells_Cells" Association="TicksModel.FK_TimeCells_Cells">
+            <End Role="Cell" EntitySet="Cells" />
+            <End Role="TimeCell" EntitySet="TimeCells" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TimeCellSeats_TimeCells" Association="TicksModel.FK_TimeCellSeats_TimeCells">
+            <End Role="TimeCell" EntitySet="TimeCells" />
+            <End Role="TimeCellSeat" EntitySet="TimeCellSeats" />
+          </AssociationSet>
+          <AssociationSet Name="UserTimeCellSeat" Association="TicksModel.UserTimeCellSeat">
+            <End Role="User" EntitySet="Users" />
+            <End Role="TimeCellSeat" EntitySet="TimeCellSeats" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram6">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram6">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram6">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition6" ReturnType="Collection(TicksModel.sp_helpdiagramdefinition6_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams6" ReturnType="Collection(TicksModel.sp_helpdiagrams6_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram6">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams6" />
+          <EntitySet Name="SeatTypes" EntityType="TicksModel.SeatType" />
+          <EntitySet Name="TickTypes" EntityType="TicksModel.TickType" />
+          </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition1_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams1_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition2_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams2_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition3_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams3_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition4_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams4_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Cell">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="CellName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CellText" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreatDate" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="CreaterId" />
+          <Property Type="Int32" Name="ColNum" Nullable="false" />
+          <Property Type="Int32" Name="RowNum" Nullable="false" />
+          <Property Type="Guid" Name="Father" Nullable="true" />
+          <NavigationProperty Name="Childs" Relationship="TicksModel.FK_CellCell" FromRole="Cell" ToRole="Cell1" />
+          <NavigationProperty Name="CellParent" Relationship="TicksModel.FK_CellCell" FromRole="Cell1" ToRole="Cell" />
+          <NavigationProperty Name="User" Relationship="TicksModel.FK_Cells_Users" FromRole="Cell" ToRole="User" />
+          <NavigationProperty Name="Seats" Relationship="TicksModel.FK_Seats_Cells" FromRole="Cell" ToRole="Seat" />
+          <NavigationProperty Name="TimeCells" Relationship="TicksModel.FK_TimeCells_Cells" FromRole="Cell" ToRole="TimeCell" />
+        </EntityType>
+        <EntityType Name="Seat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SeatName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsSold" Nullable="false" />
+          <Property Type="Boolean" Name="IsUsing" Nullable="false" />
+          <Property Type="Guid" Name="CreaterId" />
+          <Property Type="String" Name="CreatDate" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="CellsId" />
+          <Property Type="Int32" Name="RowIndex" Nullable="false" />
+          <Property Type="Int32" Name="ColIndex" Nullable="false" />
+          <Property Type="Int32" Name="SeatIndex" Nullable="false" />
+          <NavigationProperty Name="Cell" Relationship="TicksModel.FK_Seats_Cells" FromRole="Seat" ToRole="Cell" />
+          <NavigationProperty Name="User" Relationship="TicksModel.FK_Seats_Users" FromRole="Seat" ToRole="User" />
+          <Property Type="String" Name="SeatType" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="Double" Name="TicketPrice" Nullable="true" />
+          <Property Type="String" Name="TicketType" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="principal_id" Nullable="false" />
+          <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="version" />
+          <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TimeCell">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="TimeBe" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="TimeEn" Nullable="false" Precision="3" />
+          <Property Type="String" Name="MovieName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="CellID" />
+          <NavigationProperty Name="Cell" Relationship="TicksModel.FK_TimeCells_Cells" FromRole="TimeCell" ToRole="Cell" />
+          <NavigationProperty Name="TimeCellSeats" Relationship="TicksModel.FK_TimeCellSeats_TimeCells" FromRole="TimeCell" ToRole="TimeCellSeat" />
+          <Property Type="Int32" Name="ColNum" Nullable="false" />
+          <Property Type="Int32" Name="RowNum" Nullable="false" />
+          <Property Type="String" Name="ShowTimes" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TimeCellSeat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="SeatName" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsSold" Nullable="false" />
+          <Property Type="Boolean" Name="IsUsing" Nullable="false" />
+          <Property Type="String" Name="CreatDate" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="RowIndex" Nullable="false" />
+          <Property Type="Int32" Name="ColIndex" Nullable="false" />
+          <Property Type="Int32" Name="SeatIndex" Nullable="false" />
+          <Property Type="Guid" Name="TimeCellID" />
+          <NavigationProperty Name="TimeCell" Relationship="TicksModel.FK_TimeCellSeats_TimeCells" FromRole="TimeCellSeat" ToRole="TimeCell" />
+          <Property Type="String" Name="SeatType" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="TicketType" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="Double" Name="TicketPrice" Nullable="true" />
+          <Property Type="Guid" Name="SoldUserID" Nullable="true" />
+          <NavigationProperty Name="SoldUser" Relationship="TicksModel.UserTimeCellSeat" FromRole="TimeCellSeat" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreatDate" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UserLevel" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="CreaterId" />
+          <NavigationProperty Name="Cells" Relationship="TicksModel.FK_Cells_Users" FromRole="User" ToRole="Cell" />
+          <NavigationProperty Name="Seats" Relationship="TicksModel.FK_Seats_Users" FromRole="User" ToRole="Seat" />
+          <NavigationProperty Name="Users1" Relationship="TicksModel.FK_Users_Users1" FromRole="User" ToRole="User1" />
+          <NavigationProperty Name="User1" Relationship="TicksModel.FK_Users_Users1" FromRole="User1" ToRole="User" />
+          <Property Type="String" Name="UserPassword" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="TimeCellSeats" Relationship="TicksModel.UserTimeCellSeat" FromRole="User" ToRole="TimeCellSeat" />
+        </EntityType>
+        <Association Name="FK_CellCell">
+          <End Type="TicksModel.Cell" Role="Cell" Multiplicity="0..1" />
+          <End Type="TicksModel.Cell" Role="Cell1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cell">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cell1">
+              <PropertyRef Name="Father" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cells_Users">
+          <End Type="TicksModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="TicksModel.Cell" Role="Cell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Cell">
+              <PropertyRef Name="CreaterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seats_Cells">
+          <End Type="TicksModel.Cell" Role="Cell" Multiplicity="0..1" />
+          <End Type="TicksModel.Seat" Role="Seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cell">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Seat">
+              <PropertyRef Name="CellsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seats_Users">
+          <End Type="TicksModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="TicksModel.Seat" Role="Seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Seat">
+              <PropertyRef Name="CreaterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Users1">
+          <End Type="TicksModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="TicksModel.User" Role="User1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User1">
+              <PropertyRef Name="CreaterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_helpdiagramdefinition5_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams5_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <Association Name="FK_TimeCells_Cells">
+          <End Type="TicksModel.Cell" Role="Cell" Multiplicity="0..1" />
+          <End Type="TicksModel.TimeCell" Role="TimeCell" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cell">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TimeCell">
+              <PropertyRef Name="CellID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TimeCellSeats_TimeCells">
+          <End Type="TicksModel.TimeCell" Role="TimeCell" Multiplicity="0..1" />
+          <End Type="TicksModel.TimeCellSeat" Role="TimeCellSeat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeCell">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TimeCellSeat">
+              <PropertyRef Name="TimeCellID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserTimeCellSeat">
+          <End Type="TicksModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="TicksModel.TimeCellSeat" Role="TimeCellSeat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TimeCellSeat">
+              <PropertyRef Name="SoldUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_helpdiagramdefinition6_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams6_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="SeatType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="Double" Name="Price" Nullable="false" />
+          <Property Type="DateTime" Name="CreatDate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TickType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="DateTime" Name="CreatDate" Nullable="false" />
+          <Property Type="Double" Name="Price" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TicksModelStoreContainer" CdmEntityContainer="TicksModelContainer">
+    <EntitySetMapping Name="Cells">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.Cell)">
+        <MappingFragment StoreEntitySet="Cells">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CellName" ColumnName="CellName" />
+          <ScalarProperty Name="CellText" ColumnName="CellText" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="CreaterId" ColumnName="CreaterId" />
+          <ScalarProperty Name="ColNum" ColumnName="ColNum" />
+          <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+          <ScalarProperty Name="Father" ColumnName="Father" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Seats">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.Seat)">
+        <MappingFragment StoreEntitySet="Seats">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SeatName" ColumnName="SeatName" />
+          <ScalarProperty Name="IsSold" ColumnName="IsSold" />
+          <ScalarProperty Name="IsUsing" ColumnName="IsUsing" />
+          <ScalarProperty Name="CreaterId" ColumnName="CreaterId" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="CellsId" ColumnName="CellsId" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+          <ScalarProperty Name="ColIndex" ColumnName="ColIndex" />
+          <ScalarProperty Name="SeatIndex" ColumnName="SeatIndex" />
+          <ScalarProperty Name="SeatType" ColumnName="SeatType" />
+          <ScalarProperty Name="TicketPrice" ColumnName="TicketPrice" />
+          <ScalarProperty Name="TicketType" ColumnName="TicketType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.sysdiagram)">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeCells">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.TimeCell)">
+        <MappingFragment StoreEntitySet="TimeCells">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TimeBe" ColumnName="TimeBe" />
+          <ScalarProperty Name="TimeEn" ColumnName="TimeEn" />
+          <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+          <ScalarProperty Name="CellID" ColumnName="CellID" />
+          <ScalarProperty Name="ColNum" ColumnName="ColNum" />
+          <ScalarProperty Name="RowNum" ColumnName="RowNum" />
+          <ScalarProperty Name="ShowTimes" ColumnName="ShowTimes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeCellSeats">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.TimeCellSeat)">
+        <MappingFragment StoreEntitySet="TimeCellSeats">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SeatName" ColumnName="SeatName" />
+          <ScalarProperty Name="IsSold" ColumnName="IsSold" />
+          <ScalarProperty Name="IsUsing" ColumnName="IsUsing" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+          <ScalarProperty Name="ColIndex" ColumnName="ColIndex" />
+          <ScalarProperty Name="SeatIndex" ColumnName="SeatIndex" />
+          <ScalarProperty Name="TimeCellID" ColumnName="TimeCellID" />
+          <ScalarProperty Name="SeatType" ColumnName="SeatType" />
+          <ScalarProperty Name="TicketType" ColumnName="TicketType" />
+          <ScalarProperty Name="TicketPrice" ColumnName="TicketPrice" />
+          <ScalarProperty Name="SoldUserID" ColumnName="SoldUserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="UserLevel" ColumnName="UserLevel" />
+          <ScalarProperty Name="CreaterId" ColumnName="CreaterId" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeatTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.SeatType)">
+        <MappingFragment StoreEntitySet="SeatTypes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TickTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(TicksModel.TickType)">
+        <MappingFragment StoreEntitySet="TickTypes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatDate" ColumnName="CreatDate" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

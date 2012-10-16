@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4cdbb7c2f5e14ce4a71899c0faa1b4d0" Name="关系图1" ZoomLevel="100" >
+        <EntityTypeShape EntityType="TicksModel.Cell" Width="1.5" PointX="18" PointY="9.125" />
+        <EntityTypeShape EntityType="TicksModel.Seat" Width="1.5" PointX="10.097091010816904" PointY="26.595432368384412" />
+        <EntityTypeShape EntityType="TicksModel.sysdiagram" Width="1.5" PointX="0.625" PointY="14.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="TicksModel.TimeCell" Width="1.5" PointX="3.625" PointY="11.5" />
+        <EntityTypeShape EntityType="TicksModel.TimeCellSeat" Width="1.5" PointX="6.375" PointY="12.375" />
+        <EntityTypeShape EntityType="TicksModel.User" Width="1.5" PointX="11.875" PointY="13.25" />
+        <AssociationConnector Association="TicksModel.FK_CellCell" />
+        <AssociationConnector Association="TicksModel.FK_Cells_Users" />
+        <AssociationConnector Association="TicksModel.FK_Seats_Cells" />
+        <AssociationConnector Association="TicksModel.FK_Seats_Users" />
+        <AssociationConnector Association="TicksModel.FK_Users_Users1" />
+        <AssociationConnector Association="TicksModel.FK_TimeCells_Cells" />
+        <AssociationConnector Association="TicksModel.FK_TimeCellSeats_TimeCells" />
+        <AssociationConnector Association="TicksModel.UserTimeCellSeat" />
+        <EntityTypeShape EntityType="TicksModel.SeatType" Width="1.5" PointX="3.625" PointY="14.625" />
+        <EntityTypeShape EntityType="TicksModel.TickType" Width="1.5" PointX="6.625" PointY="4.375" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TicksModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="TicksModelStoreContainer">
+    <EntitySet Name="Cells" EntityType="TicksModel.Store.Cells" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Seats" EntityType="TicksModel.Store.Seats" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="TicksModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TimeCells" EntityType="TicksModel.Store.TimeCells" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TimeCellSeats" EntityType="TicksModel.Store.TimeCellSeats" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="TicksModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SeatTypes" EntityType="TicksModel.Store.SeatTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TickTypes" EntityType="TicksModel.Store.TickTypes" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_CellCell" Association="TicksModel.Store.FK_CellCell">
+      <End Role="Cell" EntitySet="Cells" />
+      <End Role="Cell1" EntitySet="Cells" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cells_Users" Association="TicksModel.Store.FK_Cells_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Cell" EntitySet="Cells" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seats_Cells" Association="TicksModel.Store.FK_Seats_Cells">
+      <End Role="Cell" EntitySet="Cells" />
+      <End Role="Seat" EntitySet="Seats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seats_Users" Association="TicksModel.Store.FK_Seats_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Seat" EntitySet="Seats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Users1" Association="TicksModel.Store.FK_Users_Users1">
+      <End Role="User" EntitySet="Users" />
+      <End Role="User1" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeCells_Cells" Association="TicksModel.Store.FK_TimeCells_Cells">
+      <End Role="Cell" EntitySet="Cells" />
+      <End Role="TimeCell" EntitySet="TimeCells" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeCellSeats_TimeCells" Association="TicksModel.Store.FK_TimeCellSeats_TimeCells">
+      <End Role="TimeCell" EntitySet="TimeCells" />
+      <End Role="TimeCellSeat" EntitySet="TimeCellSeats" />
+    </AssociationSet>
+    <AssociationSet Name="UserTimeCellSeat" Association="TicksModel.Store.UserTimeCellSeat">
+      <End Role="User" EntitySet="Users" />
+      <End Role="TimeCellSeat" EntitySet="TimeCellSeats" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cells">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CellName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CellText" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatDate" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreaterId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="ColNum" Type="int" Nullable="false" />
+    <Property Name="RowNum" Type="int" Nullable="false" />
+    <Property Name="Father" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Seats">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SeatName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsSold" Type="bit" Nullable="false" />
+    <Property Name="IsUsing" Type="bit" Nullable="false" />
+    <Property Name="CreaterId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="CreatDate" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CellsId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="RowIndex" Type="int" Nullable="false" />
+    <Property Name="ColIndex" Type="int" Nullable="false" />
+    <Property Name="SeatIndex" Type="int" Nullable="false" />
+    <Property Name="SeatType" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TicketPrice" Type="float" Nullable="true" />
+    <Property Name="TicketType" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" Nullable="true" />
+    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="TimeCells">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TimeBe" Type="datetime" Nullable="false" />
+    <Property Name="TimeEn" Type="datetime" Nullable="false" />
+    <Property Name="MovieName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CellID" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="ColNum" Type="int" Nullable="false" />
+    <Property Name="RowNum" Type="int" Nullable="false" />
+    <Property Name="ShowTimes" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TimeCellSeats">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SeatName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsSold" Type="bit" Nullable="false" />
+    <Property Name="IsUsing" Type="bit" Nullable="false" />
+    <Property Name="CreatDate" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="RowIndex" Type="int" Nullable="false" />
+    <Property Name="ColIndex" Type="int" Nullable="false" />
+    <Property Name="SeatIndex" Type="int" Nullable="false" />
+    <Property Name="TimeCellID" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="SeatType" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TicketType" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TicketPrice" Type="float" Nullable="true" />
+    <Property Name="SoldUserID" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreatDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserLevel" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreaterId" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="UserPassword" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeatTypes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="CreatDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TickTypes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatDate" Type="datetime" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CellCell">
+    <End Role="Cell" Type="TicksModel.Store.Cells" Multiplicity="0..1" />
+    <End Role="Cell1" Type="TicksModel.Store.Cells" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cell">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cell1">
+        <PropertyRef Name="Father" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cells_Users">
+    <End Role="User" Type="TicksModel.Store.Users" Multiplicity="0..1" />
+    <End Role="Cell" Type="TicksModel.Store.Cells" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Cell">
+        <PropertyRef Name="CreaterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seats_Cells">
+    <End Role="Cell" Type="TicksModel.Store.Cells" Multiplicity="0..1" />
+    <End Role="Seat" Type="TicksModel.Store.Seats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cell">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Seat">
+        <PropertyRef Name="CellsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seats_Users">
+    <End Role="User" Type="TicksModel.Store.Users" Multiplicity="0..1" />
+    <End Role="Seat" Type="TicksModel.Store.Seats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Seat">
+        <PropertyRef Name="CreaterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Users1">
+    <End Role="User" Type="TicksModel.Store.Users" Multiplicity="0..1" />
+    <End Role="User1" Type="TicksModel.Store.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="User1">
+        <PropertyRef Name="CreaterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimeCells_Cells">
+    <End Role="Cell" Type="TicksModel.Store.Cells" Multiplicity="0..1" />
+    <End Role="TimeCell" Type="TicksModel.Store.TimeCells" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cell">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TimeCell">
+        <PropertyRef Name="CellID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimeCellSeats_TimeCells">
+    <End Role="TimeCell" Type="TicksModel.Store.TimeCells" Multiplicity="0..1" />
+    <End Role="TimeCellSeat" Type="TicksModel.Store.TimeCellSeats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeCell">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TimeCellSeat">
+        <PropertyRef Name="TimeCellID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserTimeCellSeat">
+    <End Role="User" Type="TicksModel.Store.Users" Multiplicity="0..1" />
+    <End Role="TimeCellSeat" Type="TicksModel.Store.TimeCellSeats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TimeCellSeat">
+        <PropertyRef Name="SoldUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
