@@ -815,6 +815,7 @@ namespace TickSell
 
                                 pml.Add(new PrintMessage
                                 {
+
                                     Seat = sx.SeatName,
                                     Hall = sx.TimeCell.Cell.CellName,
                                     Movie = tvTimeCell.CurrentTimeCell.MovieName,
