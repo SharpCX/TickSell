@@ -413,7 +413,8 @@ namespace TickSell
         {
             try
             {
-                foreach (Cell c in cells)
+                
+                foreach (Cell c in cells.OrderBy(c=>c.CreatDate))
                 {
                     if (c.CellParent == null)
                     {
@@ -421,7 +422,7 @@ namespace TickSell
                     }
                 }
 
-                foreach (Cell c in cells)
+                foreach (Cell c in cells.OrderBy(c => c.CreatDate))
                 {
                     if (c.CellParent != null && tvCells.Nodes.ContainsKey(c.CellParent.ID.ToString()))
                     {
@@ -620,7 +621,9 @@ namespace TickSell
                 }
 
                 //测试打印机
-                printerName = ConfigurationSettings.AppSettings["printerName"].ToString();
+                printerName = System.Configuration.ConfigurationManager.AppSettings["printerName"].ToString();
+                //System.Configuration.ConfigurationManager.AppSettings["printerName"] = "";
+
                 //MessageBox.Show(PrinterSettings.InstalledPrinters.ToString());
                 //MessageBox.Show(printerName);
                 //设置初始的CellMenu
@@ -670,6 +673,7 @@ namespace TickSell
                         btnStatic.Visible = false;
                         SeatTypeManagement.Visible = false;
                         btnTickManagement.Visible = false;
+                        取消出售此座位ToolStripMenuItem.Visible = false;
                     }
                 };
                 this.Enabled = false;
@@ -686,11 +690,13 @@ namespace TickSell
                             Seat s = context.Seats.FirstOrDefault(cid => cid.ID == sb.SeatId);
                             if (s != null)
                             {
+                                context.Entry(s).Reload();
                                 sb.SetButtonContent(s);
                             }
                             TimeCellSeat tcs = context.TimeCellSeats.FirstOrDefault(cid => cid.ID == sb.SeatId);
                             if (tcs != null)
                             {
+                                context.Entry(tcs).Reload();
                                 sb.SetButtonContent(tcs);
                             }
                         }
@@ -700,7 +706,7 @@ namespace TickSell
                         MessageBox.Show("出错了 " + ex.Message);
                     }
                 };
-                timeFreshSeat.Interval = 180 * 1000;
+                timeFreshSeat.Interval = 5 * 1000;
                 timeFreshSeat.Start();
             }
             catch (Exception ex)
@@ -745,6 +751,7 @@ namespace TickSell
         ///////////////////////////////////////售票模式///////////////////////////////////////
         private void 出售此座位_Click(object sender, EventArgs e)
         {
+            timeFreshSeat.Stop();
             try
             {
                 SeatButton xbtn = (SeatButton)SellModeSeatMenu.SourceControl;
@@ -788,7 +795,10 @@ namespace TickSell
                     {
                         if (btn.BackColor != btn.SelectedColor) continue;
 
+
                         TimeCellSeat sx = context.TimeCellSeats.FirstOrDefault(c => c.ID == btn.SeatId);
+                        context.Entry(sx).Reload();
+
                         if (sx != null)
                         {
                             try
@@ -810,6 +820,7 @@ namespace TickSell
                                     MessageBox.Show("座位" + sx.SeatName + "已经售出");
                                     continue;
                                 }
+
                                 sx.SoldUser = CurrentUser;
                                 sx.IsSold = true;
 
@@ -817,9 +828,9 @@ namespace TickSell
                                 {
 
                                     Seat = sx.SeatName,
-                                    Hall = sx.TimeCell.Cell.CellName,
+                                    Hall = CurrentCell.CellName,
                                     Movie = tvTimeCell.CurrentTimeCell.MovieName,
-                                    No = sx.ID.ToString().Substring(0,sx.ID.ToString().IndexOf("-")),
+                                    No = sx.ID.ToString().Substring(0, sx.ID.ToString().IndexOf("-")),
                                     SeatType = sx.SeatType,
                                     Showtimes = sx.TimeCell.ShowTimes,
                                     Time = tvTimeCell.CurrentTimeCell.TimeBe.ToShortTimeString(),
@@ -828,8 +839,8 @@ namespace TickSell
                                     Date = tvTimeCell.CurrentTimeCell.TimeBe.ToShortDateString(),
                                     UserName = CurrentUser.UserName,
                                 });
-                                
-                                
+
+
                                 context.SaveChanges();
                             }
                             catch (Exception ex)
@@ -860,9 +871,10 @@ namespace TickSell
             {
                 MessageBox.Show(ex.Message);
             }
-
-
-
+            finally
+            {
+                timeFreshSeat.Stop();
+            }
         }
 
         ///////////////////////////////////控制切换部分//////////////////////////////////////////
@@ -1074,63 +1086,72 @@ namespace TickSell
 
         private void 取消出售此座位ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string message = string.Empty;
-            message = "座位：{0} 取消失败！";
-            string seatNum = string.Empty;
-
-            SeatButton xbtn = (SeatButton)SellModeSeatMenu.SourceControl;
-            if (xbtn != null)
+            timeFreshSeat.Stop();
+            try
             {
-                xbtn.BackColor = xbtn.SelectedColor;
-            }
+                string message = string.Empty;
+                message = "座位：{0} 取消失败！";
+                string seatNum = string.Empty;
 
-            foreach (SeatButton btn in flSeats.Controls)
-            {
-                if (btn.BackColor != btn.SelectedColor) continue;
-
-                bool isset = false;
-
-                try
+                SeatButton xbtn = (SeatButton)SellModeSeatMenu.SourceControl;
+                if (xbtn != null)
                 {
-                    //处理小座位
-                    TimeCellSeat tcs = context.TimeCellSeats.FirstOrDefault(c => c.ID == btn.SeatId);
+                    xbtn.BackColor = xbtn.SelectedColor;
+                }
 
-                    if (tcs != null)
+                foreach (SeatButton btn in flSeats.Controls)
+                {
+                    if (btn.BackColor != btn.SelectedColor) continue;
+
+                    bool isset = false;
+
+                    try
                     {
-                        if (tcs.IsUsing == false) continue;
-                        if (tcs.IsSold == false)
+                        //处理小座位
+                        TimeCellSeat tcs = context.TimeCellSeats.ToList().FirstOrDefault(c => c.ID == btn.SeatId);
+                        context.Entry(tcs).Reload();
+
+                        context.Configuration.ProxyCreationEnabled = false;
+
+
+                        if (tcs != null)
                         {
-                            btn.IsSold = tcs.IsSold;
+                            if (tcs.IsUsing == false) continue;
+                            if (tcs.IsSold == false)
+                            {
+                                btn.IsSold = tcs.IsSold;
+                                tcs.SoldUser = null;
+                                btn.CancelSell();
+                                continue;
+                            }
+                            tcs.IsSold = false;
                             tcs.SoldUser = null;
-                            btn.CancelSell();
-                            continue;
+                            isset = true;
                         }
-                        tcs.IsSold = false;
-                        tcs.SoldUser = null;
-                        isset = true;
-                    }
 
-                    if (isset == false)
+                        if (isset == false)
+                        {
+                            MessageBox.Show("请重试");
+                        }
+                        context.SaveChanges();
+                    }
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("请重试");
+                        MessageBox.Show("修改信息出错，请重试。");
+                        return;
                     }
-                    context.SaveChanges();
+                    btn.CancelSell();
                 }
-                catch (Exception ex)
+
+                if (seatNum != string.Empty)
                 {
-                    MessageBox.Show("修改信息出错，请重试。");
-                    return;
+                    MessageBox.Show(string.Format(message, seatNum));
                 }
-                btn.CancelSell();
             }
-
-            if (seatNum != string.Empty)
+            finally
             {
-                MessageBox.Show(string.Format(message, seatNum));
+                timeFreshSeat.Stop();
             }
-
-
-
         }
 
         private void TS_Shown(object sender, EventArgs e)
@@ -1238,7 +1259,7 @@ namespace TickSell
 
         private void flSeats_MouseEnter(object sender, EventArgs e)
         {
-            timeFreshSeat.Stop();
+            //timeFreshSeat.Stop();
         }
 
         private void flSeats_MouseLeave(object sender, EventArgs e)
@@ -1373,6 +1394,11 @@ namespace TickSell
             TickTypeManager UM = new TickTypeManager();
             UM.Context = context;
             UM.Show();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }                 
     }
 }

@@ -431,7 +431,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Seats_Cells">
-    <End Type="TicksModel.Cell" Role="Cell" Multiplicity="0..1" />
+    <End Type="TicksModel.Cell" Role="Cell" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="TicksModel.Seat" Role="Seat" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Cell">
@@ -490,7 +492,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TimeCellSeats_TimeCells">
-    <End Type="TicksModel.TimeCell" Role="TimeCell" Multiplicity="0..1" />
+    <End Type="TicksModel.TimeCell" Role="TimeCell" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Type="TicksModel.TimeCellSeat" Role="TimeCellSeat" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TimeCell">

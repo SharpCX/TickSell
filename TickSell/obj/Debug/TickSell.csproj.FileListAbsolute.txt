@@ -9,7 +9,6 @@ C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\bin\Debu
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.csprojResolveAssemblyReference.cache
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.CellSpeedInitialer.resources
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.EditSeatMessage.resources
-C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.Form1.resources
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.FormStatic.resources
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.InputDialog.resources
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.Login.resources
@@ -17,6 +16,7 @@ C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debu
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.PrintTest.resources
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.Properties.Resources.resources
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.SeatTypeManager.resources
+C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.SelectPrinter.resources
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.TimeCellDia.resources
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.UserManager.resources
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell\obj\Debug\TickSell.TickTypeManager.resources

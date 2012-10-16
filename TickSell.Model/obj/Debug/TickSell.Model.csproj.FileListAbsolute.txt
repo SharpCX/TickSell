@@ -6,3 +6,4 @@ C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell.Model\bi
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell.Model\obj\Debug\TickSell.Model.dll
 C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell.Model\obj\Debug\TickSell.Model.pdb
+C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell.Model\obj\Debug\TickSell.Model.csprojResolveAssemblyReference.cache

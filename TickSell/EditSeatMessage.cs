@@ -76,47 +76,110 @@ namespace TickSell
         {
             try
             {
-                if (comRow.Items.Count != 0)
-                    comRow.Items.Clear();
-                if (comCol.Items.Count != 0)
-                    comRow.Items.Clear();
-                //初始化行
-                for (int i = 1; i <= CurrentCell.RowNum; i++)
+                try
                 {
-                    comRow.Items.Add(i);
+                    if (comRow.Items.Count != 0)
+                        comRow.Items.Clear();
+                    if (comCol.Items.Count != 0)
+                        comRow.Items.Clear();
                 }
-                //初始化行
-                for (int i = 1; i <= CurrentCell.ColNum; i++)
+                catch
                 {
-                    comCol.Items.Add(i);
+                    MessageBox.Show("1");
                 }
-                //初始化座位
-                foreach (string s in GlobalVars.SeatTypeList)
+                
+                try
                 {
-                    comSeatType.Items.Add(s);
+                    //初始化行
+                    for (int i = 1; i <= CurrentCell.RowNum; i++)
+                    {
+                        comRow.Items.Add(i);
+                    }
+                    //初始化行
+                    for (int i = 1; i <= CurrentCell.ColNum; i++)
+                    {
+                        comCol.Items.Add(i);
+                    }
+                    //初始化座位
+                    foreach (string s in GlobalVars.SeatTypeList)
+                    {
+                        comSeatType.Items.Add(s);
+                    }
+                    //初始化票类
+                    foreach (string s in GlobalVars.TicketTypeList)
+                    {
+                        comTickType.Items.Add(s);
+                    }
                 }
-                //初始化票类
-                foreach (string s in GlobalVars.TicketTypeList)
+                catch
                 {
-                    comTickType.Items.Add(s);
+                    MessageBox.Show("2");
                 }
 
-                if (CurrentSeat != null)
+                if (CurrentSeat == null && CurrentTimeCellSeat == null)
                 {
-                    comRow.Text = CurrentSeat.RowIndex.ToString();
-                    comCol.Text = CurrentSeat.ColIndex.ToString();
-                    txtPrice.Text = CurrentSeat.TicketPrice.ToString();
-                    comSeatType.Text = CurrentSeat.SeatType.ToString();
-                    comTickType.Text = CurrentSeat.TicketType.ToString();
+                    MessageBox.Show("抱歉，内部错误！！不能同时不指定两个类型的座位哦！！");
                 }
 
-                if (CurrentTimeCellSeat != null)
+                try{
+                    if (CurrentSeat != null)
+                    {
+                        comRow.Text = CurrentSeat.RowIndex.ToString();
+                        comCol.Text = CurrentSeat.ColIndex.ToString();
+                        txtPrice.Text = CurrentSeat.TicketPrice.ToString();
+                        comSeatType.Text = CurrentSeat.SeatType.ToString();
+                        comTickType.Text = CurrentSeat.TicketType.ToString();
+                    }
+                }
+                catch
                 {
-                    comRow.Text = CurrentTimeCellSeat.RowIndex.ToString();
-                    comCol.Text = CurrentTimeCellSeat.ColIndex.ToString();
-                    txtPrice.Text = CurrentTimeCellSeat.TicketPrice.ToString();
-                    comSeatType.Text = CurrentTimeCellSeat.SeatType.ToString();
-                    comTickType.Text = CurrentTimeCellSeat.TicketType.ToString();
+                    MessageBox.Show("3");
+                }
+
+                try{
+                    if (CurrentTimeCellSeat != null)
+                    {
+                        try
+                        {
+                            comRow.Text = CurrentTimeCellSeat.RowIndex.ToString();
+                            comCol.Text = CurrentTimeCellSeat.ColIndex.ToString();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("41");
+                        }
+
+                        try
+                        {
+                            txtPrice.Text = CurrentTimeCellSeat.TicketPrice.ToString();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("42");
+                        }
+                        try
+                        {
+                            comSeatType.Text = CurrentTimeCellSeat.SeatType.ToString();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("43");
+                        }
+
+                        try
+                        {
+                            comTickType.Text = CurrentTimeCellSeat.TicketType ?? "";
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("44");
+                        }
+
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("4");
                 }
 
                 if (CurrentSeat != null && CurrentTimeCellSeat != null)
@@ -126,7 +189,7 @@ namespace TickSell
             }
             catch(Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message);
             }
 
         }

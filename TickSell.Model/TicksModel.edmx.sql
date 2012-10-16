@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/16/2012 10:37:00
+-- Date Created: 10/17/2012 02:04:54
 -- Generated from EDMX file: C:\Users\陈响\documents\visual studio 2012\Projects\TickSell\TickSell.Model\TicksModel.edmx
 -- --------------------------------------------------
 
@@ -266,7 +266,7 @@ ADD CONSTRAINT [FK_Seats_Cells]
     FOREIGN KEY ([CellsId])
     REFERENCES [dbo].[Cells]
         ([ID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_Seats_Cells'
 CREATE INDEX [IX_FK_Seats_Cells]
@@ -322,7 +322,7 @@ ADD CONSTRAINT [FK_TimeCellSeats_TimeCells]
     FOREIGN KEY ([TimeCellID])
     REFERENCES [dbo].[TimeCells]
         ([ID])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+    ON DELETE CASCADE ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_TimeCellSeats_TimeCells'
 CREATE INDEX [IX_FK_TimeCellSeats_TimeCells]

@@ -59,8 +59,10 @@
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -86,12 +88,6 @@
       <DependentUpon>EditSeatMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="ExportToExcel.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormStatic.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +134,12 @@
     <Compile Include="SeatTypeManager.Designer.cs">
       <DependentUpon>SeatTypeManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectPrinter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectPrinter.Designer.cs">
+      <DependentUpon>SelectPrinter.cs</DependentUpon>
+    </Compile>
     <Compile Include="TicketPrinter.cs" />
     <Compile Include="ticksDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -182,9 +184,6 @@
     <EmbeddedResource Include="EditSeatMessage.resx">
       <DependentUpon>EditSeatMessage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormStatic.resx">
       <DependentUpon>FormStatic.cs</DependentUpon>
     </EmbeddedResource>
@@ -211,6 +210,9 @@
     </Compile>
     <EmbeddedResource Include="SeatTypeManager.resx">
       <DependentUpon>SeatTypeManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectPrinter.resx">
+      <DependentUpon>SelectPrinter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimeCellDia.resx">
       <DependentUpon>TimeCellDia.cs</DependentUpon>

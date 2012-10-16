@@ -15,6 +15,7 @@ namespace TickSell
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new TS());SelectPrinter
             Application.Run(new TS());
         }
     }
